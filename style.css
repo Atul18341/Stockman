@@ -1,0 +1,210 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --primary-color: #4e73df;
+    --secondary-color: #858796;
+    --success-color: #1cc88a;
+    --danger-color: #e74a3b;
+    --dark-sidebar: #222e3c;
+    --light-bg: #f3f4f7;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-bg);
+    overflow-x: hidden;
+}
+
+/* --- Login Page Styling --- */
+.login-bg {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+.login-img {
+    background: url('https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80') center center no-repeat;
+    background-size: cover;
+}
+
+/* --- Dashboard Sidebar --- */
+.wrapper { display: flex; width: 100%; align-items: stretch; }
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: var(--dark-sidebar);
+    color: #fff;
+    transition: all 0.3s;
+    min-height: 100vh;
+}
+#sidebar .sidebar-header { padding: 10px; background-color: #b7d8e8; }
+#sidebar ul.components { padding: 20px 0; border-bottom: 1px solid #b7d8e8; }
+#sidebar ul li a {
+    padding: 15px 25px;
+    font-size: 1.1em;
+    display: block;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+}
+#sidebar ul li a:hover, #sidebar ul li.active > a {
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+    border-left: 4px solid var(--primary-color);
+}
+
+/* --- Dashboard Content --- */
+#content { width: 100%; padding: 20px; min-height: 100vh; transition: all 0.3s; }
+.stat-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.stat-card:hover { transform: translateY(-5px); }
+.stat-icon { font-size: 2rem; opacity: 0.3; }
+
+/* --- Table Styling --- */
+.custom-table-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 20px;
+}
+.table thead th {
+    border-top: none;
+    border-bottom: 2px solid #e3e6f0;
+    color: #858796;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+.btn-circle {
+    width: 35px; height: 35px; padding: 6px 0px;
+    border-radius: 50%; text-align: center; font-size: 12px; line-height: 1.42857;
+}
+
+/* --- Sidebar Toggling Logic --- */
+
+/* Default State (Desktop): Sidebar is visible */
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: var(--dark-sidebar);
+    color: #fff;
+    transition: all 0.3s;
+    /* ensure it doesn't shrink in flex container */
+    flex-shrink: 0; 
+}
+
+/* Hidden State (Desktop): Moves off-canvas to the left */
+#sidebar.active {
+    margin-left: -250px;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    /* Default State (Mobile): Sidebar is HIDDEN by default */
+    #sidebar {
+        margin-left: -250px;
+    }
+    
+    /* Active State (Mobile): Sidebar slides IN */
+    #sidebar.active {
+        margin-left: 0;
+    }
+    
+    /* Darken content when sidebar is open on mobile (optional UX improvement) */
+    #sidebar.active + #content::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 99;
+    }
+}
+
+/* Notification Animation */
+@keyframes bell-shake {
+    0% { transform: rotate(0); }
+    15% { transform: rotate(5deg); }
+    30% { transform: rotate(-5deg); }
+    45% { transform: rotate(4deg); }
+    60% { transform: rotate(-4deg); }
+    75% { transform: rotate(2deg); }
+    85% { transform: rotate(-2deg); }
+    100% { transform: rotate(0); }
+}
+
+.bell-shake {
+    animation: bell-shake 2s infinite;
+    color: #e74a3b !important; /* Make icon red if there is an alert */
+}
+
+/* Dropdown Tweaks */
+.dropdown-menu {
+    border-radius: 10px;
+    margin-top: 10px !important;
+}
+.dropdown-item:active {
+    background-color: var(--light-bg);
+    color: #000;
+}
+
+/* --- Stockman Manager Widget --- */
+.manager-card {
+    border-radius: 15px;
+    color: white;
+    transition: transform 0.3s;
+}
+
+/* 1. Happy Mood (Default) - Professional Blue/Purple Gradient */
+.manager-happy {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+}
+
+/* 2. Warning Mood - Orange Gradient */
+.manager-warning {
+    background: linear-gradient(135deg, #f6c23e 0%, #e0a800 100%);
+    color: #333; /* Dark text for readability on orange */
+}
+
+/* 3. Danger Mood - Red Gradient */
+.manager-danger {
+    background: linear-gradient(135deg, #e74a3b 0%, #c0392b 100%);
+}
+
+/* 4. Neutral Mood - Grey/Slate */
+.manager-neutral {
+    background: linear-gradient(135deg, #858796 0%, #60616f 100%);
+}
+
+/* Icon Styling */
+.manager-icon {
+    background: rgba(255, 255, 255, 0.2);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Stats Card Icons */
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
