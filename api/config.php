@@ -14,7 +14,7 @@ $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
    // PDO::MYSQL_ATTR_SSL_CA => '/path/to/your/ca.pem', // Optional path for dedicated clusters
-   // PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true // Ensure server cert is verified
+    PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false // Ensure server cert is verified
 ];
 
 try {
