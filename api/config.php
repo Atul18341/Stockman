@@ -1,18 +1,35 @@
 <?php
-// config.php
+$host = 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+$port = '4000'; // Usually 4000
+$user = 'A5Lt1VFmgS7zw6x.root';
+$pass = '0FbFs4UCySG4r76J';
+$dbname = 'test';
 
+// DSN (Data Source Name) for MySQL compatible TiDB
+$dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
 
-$dsn = "mysql://A5Lt1VFmgS7zw6x.root:0FbFs4UCySG4r76J@gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/test";
+// Connection options to enforce SSL/TLS, which is required for TiDB Cloud public connections.
+// Use VERIFY_IDENTITY for robust security or a simpler mode if needed.
 $options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false, // Critical: Forces MySQL to use real prepared statements
+   // PDO::MYSQL_ATTR_SSL_CA => '/path/to/your/ca.pem', // Optional path for dedicated clusters
+   // PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true // Ensure server cert is verified
 ];
 
 try {
-    $pdo = new PDO($dsn, $options);
-} catch (\PDOException $e) {
-    // In production, log this error to a file instead of showing it
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    $pdo = new PDO($dsn, $user, $pass, $options);
+    echo "Connected successfully to TiDB Cloud!";
+
+    // Example query
+    $stmt = $pdo->query('SELECT VERSION() AS tidb_version');
+    $row = $stmt->fetch();
+    echo "<br>TiDB Version: " . $row['tidb_version'];
+
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
+
+// Close connection (optional for PHP scripts that end automatically)
+$pdo = null;
 ?>
