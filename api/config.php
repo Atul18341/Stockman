@@ -21,7 +21,7 @@ try {
     $pdo = new PDO($dsn, $user, $pass, $options);
     ini_set('session.cookie_httponly', 1);
     ini_set('session.use_only_cookies', 1);
-    ini_set('session.cookie_samesite', 'Strict');
+    ini_set('session.cookie_samesite', 'NONE');
     ini_set('session.gc_maxlifetime', 3600);
     session_set_cookie_params(3600);
     // -------------------------------------------------------------
