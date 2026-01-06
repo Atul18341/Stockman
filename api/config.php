@@ -19,12 +19,22 @@ $options = [
 
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
-    echo "Connected successfully to TiDB Cloud!";
-
-    // Example query
-    $stmt = $pdo->query('SELECT VERSION() AS tidb_version');
-    $row = $stmt->fetch();
-    echo "<br>TiDB Version: " . $row['tidb_version'];
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.use_only_cookies', 1);
+    ini_set('session.cookie_samesite', 'Strict');
+    ini_set('session.gc_maxlifetime', 3600);
+    session_set_cookie_params(3600);
+    // -------------------------------------------------------------
+    
+    // Start Session globally
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    // Generate CSRF Token if not exists
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
 
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
