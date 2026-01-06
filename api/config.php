@@ -10,7 +10,7 @@ $options = [
 ];
 
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo = new PDO($dsn, $options);
 } catch (\PDOException $e) {
     // In production, log this error to a file instead of showing it
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
