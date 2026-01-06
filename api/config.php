@@ -40,6 +40,5 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-// Close connection (optional for PHP scripts that end automatically)
-$pdo = null;
+
 ?>
