@@ -1,12 +1,8 @@
 <?php
 // config.php
-$host = '127.0.0.1:3308';
-$db   = 'inventory_db';
-$user = 'root';         // Default MySQL user (Change this for production!)
-$pass = '';             // Default XAMPP password is empty (Change this!)
-$charset = 'utf8mb4';   // Critical for security in MySQL
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+$dsn = "mysql://A5Lt1VFmgS7zw6x.root:0FbFs4UCySG4r76J@gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/test";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
